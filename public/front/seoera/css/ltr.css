@@ -1,0 +1,151 @@
+.show-errors
+{
+    padding: 3px;
+    margin-bottom: 2px;
+    text-align: center;
+}
+
+.logo img {
+    max-height: 45px;
+    width: 70px;
+}
+
+
+#map iframe
+{
+	width: 100% !important;
+}
+
+.pricing-box 
+{
+    height: auto;
+    padding: 20px;
+    
+}
+.pointer
+{
+	cursor: pointer !important;
+}
+.prod-home-img img
+{
+	height: 250px !important;
+	width: 100%;
+}
+ul.pro-rating {
+    float: right;
+    margin-top: 0px;
+    
+}
+
+ul.pro-rating li, .pro-review ul li, .social-icon ul li 
+{
+	color: #FF7575;
+}
+
+.category-list ul li a {
+    color: #FF7575;
+    display: block;
+}
+
+.menu-right-area ul li:hover .top-cart-content 
+{
+    opacity: 1;
+    transform: scaleY(1);
+    visibility: visible;
+    max-height: 400px;
+    overflow: auto;
+}
+.header-middle-checkout .checkout-content .checkout-remove
+{
+    float: right;
+}
+
+.cart-button
+{
+    background: #ff7575;
+    border: 1px solid #ff7575;
+    color: #fff;
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    height: 40px;
+    line-height: 40px;
+    /*padding: 0 15px;*/
+    text-align: center;
+    text-transform: uppercase;
+    transition: all 1s ease 0s;
+    white-space: nowrap;
+    cursor: pointer !important;
+}
+
+.table-bottom-area .bottom-button > a, .shopingcart-bottom-area a, .discount-middle > a,
+.table-bottom-area .bottom-button > button, .shopingcart-bottom-area button, .discount-middle > button {
+    border: 1px solid #666666;
+    border-radius: 20px;
+    color: #666666;
+    font-weight: 500;
+    margin-left: 5px;
+    padding: 10px 25px;
+}
+
+
+.update-cart-btn:hover
+{
+    background-color: #FF7575  !important;
+    color: #fff;
+}
+
+
+
+
+.coverLoading
+{
+    position: absolute;
+    width: 100%;
+    display: none;
+    left: 0;
+    height: 100%;
+    background: rgba(2,2,2,0.5);
+    z-index: 111111111111;
+    top: -20px;
+}
+
+
+.coverLoading img 
+{
+    display: block;
+    margin: auto;
+    width: 150px;
+    margin-top: 150px;
+}
+
+
+
+.bannerhead-area .banner-heading 
+{
+    padding: 128px 0;
+    text-align: center;
+}
+
+
+.order-hist
+{
+        display: block;
+    margin: 15px;
+    background: #FF7575;
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

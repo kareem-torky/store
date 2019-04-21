@@ -1,0 +1,39 @@
+.show-errors
+{
+    padding: 3px;
+    margin-bottom: 2px;
+    text-align: center;
+}
+
+.logo img {
+    max-height: 45px;
+    width: 70px;
+}
+
+.btn-slider a
+{
+    border: 1px solid #666666 !important;
+    border-radius: 20px;
+    color: #666666 !important;
+    font-family: lato;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    padding: 10px 30px;
+    text-decoration: none;
+}
+
+
+.prod-home-img img{
+    height:292px;
+}
+.pro-ratcolor
+{
+    margin-top:20px;
+    color:#FF7575;
+}
+
+.addToCart
+{
+    cursor  :pointer;
+}

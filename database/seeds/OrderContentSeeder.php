@@ -12,7 +12,7 @@ class OrderContentSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=1; $i<=10; $i++) {
+        for ($i=1; $i<=25; $i++) {
             OrderContent::create([
                 'order_id'   => $i,
                 'product_id' => rand(1,50),

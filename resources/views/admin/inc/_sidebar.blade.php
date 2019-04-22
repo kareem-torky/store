@@ -229,17 +229,22 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">
+                                        <a href="{{ route('admin.get.order.shipping.index') }}" class="nav-link">
                                             <i class="fa fa-arrow-right"></i>@lang('site.shipping') 
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">
+                                        <a href="{{ route('admin.get.order.cancelled.index') }}" class="nav-link">
+                                            <i class="fa fa-arrow-right"></i>@lang('site.cancelled') 
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.get.order.accepted.index') }}" class="nav-link">
                                             <i class="fa fa-arrow-right"></i>@lang('site.accepted') 
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">
+                                        <a href="{{ route('admin.get.order.refused.index') }}" class="nav-link">
                                             <i class="fa fa-arrow-right"></i>@lang('site.refused') 
                                         </a>
                                     </li>

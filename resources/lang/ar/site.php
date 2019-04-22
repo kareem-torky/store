@@ -100,6 +100,25 @@ return [
 	'desc'							=> 'الوصف',
 	'gov'								=> 'المحافظة',
 	'govs'							=> 'المحافظات',
+	'addShipping'				=> 'أضف إلى التسليم',
+	'orderNum'					=> 'طلب رقم',
+	'show'							=> 'عرض',
+	'quantity'					=> 'الكمية',
+	'status'						=> 'الحالة',
+	'accept'						=> 'قبول',
+	'refuse'						=> 'رفض',
+	'cancelled'					=> 'الملغى',
+	'orderId'						=> 'رقم الطلب',
+	'acceptedOrders'		=> ' الطلبات المقبولة ',
+	'refusedOrders'		=> ' الطلبات المرفوضة ',
+	'cancelledOrders'		=> ' الطلبات الملغاة ',
+
+
+
+
+
+
+
 
 
 	// data for form 
@@ -158,6 +177,9 @@ return [
 	'deleted_success'		=> ' تم الحذف بنجاح ',
 	'sorted_success'		=> ' تم ترتيب البيانات ',
 	'dataNotFound'		    => ' للاسف   , لا توجد بيانات  !',
+	'shipped_success'		=> 'تم شحن الطلب بنجاح ',
+	'accepted_success'	=> 'تمت الموافقة على الطلب',
+	'refused_success'		=> 'تم رفض الطلب',
 	'activate_message' 		=> ' تم التفعيل بنجاح ',
 	'deactivate_message' 	=> ' تم الغاء التفعيل بنجاح ',
 

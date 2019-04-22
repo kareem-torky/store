@@ -22,7 +22,7 @@
             <i class="fa fa-circle"></i>
         </li>
         <li>
-            <a href="{{ route('admin.get.order.pending.index') }}" class="active-bread">@lang('site.pending')</a>
+            <a href="{{ route('admin.get.order.shipping.index') }}" class="active-bread">@lang('site.shipping')</a>
             <i class="fa fa-circle"></i>
         </li>
         <li>
@@ -40,13 +40,9 @@
 
 <!-- END PAGE HEADER-->
 <div class="note note-info">
-    <h3> @lang('site.view') ( @lang('site.pending') ) </h3>
+    <h3> @lang('site.view') ( @lang('site.shipping') ) </h3>
 </div>
 
-
-{{-- <div class="alert alert-success">
-    <h3 class="text-center">{{ $success }} </h3>
-</div> --}}
 
 
 <div class="row">
@@ -59,6 +55,7 @@
                 @if($orders->count())
                <form action="{{ route('admin.post.order.deleteMulti') }}" method="post" id="Form2"> @csrf </form>
                 </button>
+
                         <div class="coverLoading" style="">
                             <img src="{{furl()}}/img/loading.gif">
                         </div>
@@ -76,7 +73,7 @@
                                 <th> @lang('site.name') </th>
                                 <th> @lang('site.code') </th>
                                 <th> @lang('site.actions') </th>
-                                <th>  </th>
+                                <th> </th>
 
 
                             </tr>
@@ -105,7 +102,7 @@
                                 <td class="text-center"> 
                                     {{ $order->code }} 
                                 </td>
-                                
+
                                 <td class="text-center">
 
                                     <a href="{{ route('admin.get.order.show', ['id'=>$order->id]) }}" class="btn btn-info btn-sm" title="@lang('site.show')">
@@ -115,21 +112,31 @@
                                     <a href="{{ route('admin.get.order.delete', ['id'=>$order->id]) }}" class="conform-delete btn btn-danger btn-sm" title="@lang('site.delete')">
                                             <i class="fa fa-close"></i>
                                     </a>
-
-                                    
-                                                           
-                                </td>
-
-                                <td class="text-center"> 
-                                    <form method="post" class="shipping-form" id="shipping-{{ $order->id }}"> 
-                                        @csrf 
-                                        <input type="hidden" name="id" value="{{ $order->id }}">
-                                        <button type="submit" class="btn btn-primary btn-sm">
-                                            @lang('site.addShipping')
-                                        </button>
-                                    </form>
+                        
                                 </td>
                                 
+                                
+                                <td class="text-center"> 
+                                        <form method="post" class="accept-form" id="accept-{{ $order->id }}"> 
+                                            @csrf 
+                                            <input type="hidden" name="id" value="{{ $order->id }}">
+                                            
+                                        </form>
+                                        <form method="post" class="refuse-form" id="refuse-{{ $order->id }}"> 
+                                            @csrf 
+                                            <input type="hidden" name="id" value="{{ $order->id }}">
+                                            
+                                        </form>
+
+                                        <button type="submit" class="btn btn-primary btn-sm" form="accept-{{ $order->id }}">
+                                                @lang('site.accept')
+                                        </button>
+
+                                        <button type="submit" class="btn btn-danger btn-sm" form="refuse-{{ $order->id }}">
+                                                @lang('site.refuse')
+                                        </button>
+                                </td>
+                                            
                             </tr>
                             @endforeach
 
@@ -142,9 +149,9 @@
                 
                         </form>
                     <button type="submit" class="btn btn-danger btn-sm item-checked" form="Form2">@lang('site.deleteChecked')</button>
-              
                     <button  class="btn btn-info btn-sm pull-right sort" type="submit" form="sortForm" >         @lang('site.sort') 
-
+              
+                    
               
             <!-- end form  -->
 
@@ -182,14 +189,14 @@
 <script type="text/javascript" src="{{aurl()}}/seoera/js/sortAndDataTable.js"></script>
 
 <script type="text/javascript">
-
-    $(".coverLoading").css("display","none");
   
+    $(".coverLoading").css("display","none");
+
     $.ajaxSetup({
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
     });
 
-    $('.shipping-form').each(function(){
+    $('.accept-form').each(function(){
         $(this).submit(function(e){
             e.preventDefault();
 
@@ -199,7 +206,7 @@
             
             $.ajax({
                 type:'POST',
-                url:"{{route('admin.post.order.pending.toShipping')}}",
+                url:"{{route('admin.post.order.shipping.toAccepted')}}",
                 data:formData,
                 contentType: false,
                 processData: false,
@@ -212,6 +219,40 @@
                 {
                     $(".coverLoading").css("display","none");
                     $("#sample_1").css("visibility","visible");
+                    $('#row-no-'+id).hide();
+                },
+                error: function(xhr, status, error) 
+                {
+                    console.log(error);
+                    $("#errors").html('');
+                    $.each(xhr.responseJSON.errors, function (key, item) 
+                    {
+                        $("#errors").append("<li class='alert alert-danger show-errors'>"+item+"</li>")
+                    });
+
+                }
+
+            });
+        })
+    })
+
+
+    $('.refuse-form').each(function(){
+        $(this).submit(function(e){
+            e.preventDefault();
+
+            // return false;
+            var formData  = new FormData(jQuery(this)[0]);
+            var id = parseInt(formData.get("id"));
+            
+            $.ajax({
+                type:'POST',
+                url:"{{route('admin.post.order.shipping.toRefused')}}",
+                data:formData,
+                contentType: false,
+                processData: false,
+                success:function(data)
+                {
                     $('#row-no-'+id).hide();
                 },
                 error: function(xhr, status, error) 

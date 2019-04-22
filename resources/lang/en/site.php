@@ -114,6 +114,15 @@ return [
 	'desc'							=> 'Description',
 	'gov'								=> 'Governate',
 	'govs'							=> 'Governates',
+	'addShipping'				=> 'Add to Shipping',
+	'orderNum'					=> 'Order no.',
+	'show'							=> 'Show',
+	'quantity'					=> 'Quantity',
+	'status'						=> 'Status',
+	'accept'						=> 'Accept',
+	'refuse'						=> 'Refuse',
+	'cancelled'					=> 'Cancelled',
+	'orderId'						=> 'Order ID',
 
 
 
@@ -146,7 +155,10 @@ return [
 	'pending'					=> ' Pending  ',
 	'shipping'					=> ' Shipping  ',
 	'accepted'					=> ' Accepted   ',
+	'acceptedOrders'		=> ' Accepted Orders ',
 	'refused'					=> ' Refused   ',
+	'refusedOrders'		=> ' Refused Orders ',
+	'cancelledOrders'		=> ' Cancelled Orders ',
 	'brand'						=> ' Brands ',
 
 
@@ -200,6 +212,9 @@ return [
 	'updated_success'		=> 'Updated Success',
 	'deleted_success'		=> 'Deleted Success',
 	'sorted_success'		=> 'Items Has Been Sorted',
+	'shipped_success'		=> 'Order shipped successfully',
+	'accepted_success'	=> 'Order accepted successfully',
+	'refused_success'		=> 'Order refused',
 	'dataNotFound'		    => 'There Is No Data !',
 
 

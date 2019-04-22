@@ -34,4 +34,9 @@ class Admin extends Authenticatable
     {
         return $this->hasOne('App\Models\Language','id','language_id');
     }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Models\Product\Orders','admin_id','id');
+    }
 }

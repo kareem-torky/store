@@ -12,12 +12,13 @@ class OrderSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=1; $i<=10; $i++) {
+        for ($i=1; $i<=25; $i++) {
             Order::create([
                 'data' => 'data',
-                'code' => $i,
+                'code' => rand(1,10000),
                 'status' => 'pending'
             ]);
         }
+
     }
 }

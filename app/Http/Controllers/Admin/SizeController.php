@@ -68,7 +68,7 @@ class SizeController extends Controller
     // deleteing row from db  ( soft delete )
     public function delete($id)
     {
-        Size::findOrFail($id)->delete();
+      Size::findOrFail($id)->delete();
     	session()->flash('message',trans('site.deleted_success'));
     	return back();
 

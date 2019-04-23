@@ -40,6 +40,7 @@ class ShippingController extends Controller
         {
             $order = Order::where('id', $request->id)->first();
             $order->status = 'refused';
+            $order->refused_notes = $request->refused_notes;
             $order->save();
             $message['success'] = trans('site.refused_success');
             return response()->json($message);

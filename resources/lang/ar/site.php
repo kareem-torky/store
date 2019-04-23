@@ -112,6 +112,10 @@ return [
 	'acceptedOrders'		=> ' الطلبات المقبولة ',
 	'refusedOrders'		=> ' الطلبات المرفوضة ',
 	'cancelledOrders'		=> ' الطلبات الملغاة ',
+	'submit'						=> 'إرسال',
+	'cancel'						=> 'إلغاء',
+
+
 
 
 

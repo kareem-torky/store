@@ -123,6 +123,8 @@ return [
 	'refuse'						=> 'Refuse',
 	'cancelled'					=> 'Cancelled',
 	'orderId'						=> 'Order ID',
+	'submit'						=> 'Submit',
+	'cancel'						=> 'Cancel',
 
 
 

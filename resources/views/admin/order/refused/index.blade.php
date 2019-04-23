@@ -44,6 +44,23 @@
 </div>
 
 
+<div class="modal fade" id="refuse-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h3 class="modal-title">Refusal note</h3>
+                </div>
+                <div class="modal-body" id="modal-note">
+                </div>
+
+                <div class="modal-footer">
+                    <a href="" class="btn btn-default" data-dismiss="modal">Close</a>
+                </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="row">
     <div class="col-md-12">
@@ -100,6 +117,14 @@
 
                                 <td class="text-center">
 
+                                    <button type="button" class="btn btn-primary btn-sm read-note-btn" data-toggle="modal" data-target="#refuse-modal" value="{{ $order->id }}" title="read note">
+                                        <i class="fa fa-book"></i>
+                                    </button>
+
+                                    <input type="hidden" value="{{ $order->refused_notes }}" id="note-{{ $order->id }}">
+
+        
+
                                     <a href="{{ route('admin.get.order.show', ['id'=>$order->id]) }}" class="btn btn-info btn-sm" title="@lang('site.show')">
                                         <i class="fa fa-eye"></i>
                                     </a>
@@ -107,6 +132,8 @@
                                     <a href="{{ route('admin.get.order.delete', ['id'=>$order->id]) }}" class="conform-delete btn btn-danger btn-sm" title="@lang('site.delete')">
                                             <i class="fa fa-close"></i>
                                     </a>
+
+                                
                         
                                 </td>
                                 
@@ -161,6 +188,20 @@
 
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
 
-<script type="text/javascript" src="{{aurl()}}/seoera/js/sortAndDataTable.js"></script>
+{{-- <script type="text/javascript" src="{{aurl()}}/seoera/js/sortAndDataTable.js"></script> --}}
+
+
+<script>
+
+
+    $('.read-note-btn').each(function(){
+        $(this).click(function(){
+            var id = $(this).val();
+            $('#modal-note').html($('#note-'+id).val());
+        })
+    })
+
+</script>
+
 
 @endsection

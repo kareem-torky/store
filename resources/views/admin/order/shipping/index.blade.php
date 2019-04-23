@@ -44,6 +44,30 @@
 </div>
 
 
+<div class="modal fade" id="refuse-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title">Add a note before refusal</h3>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="refuse-form-hidden" name="id" value="" form="refuse-form">
+                <textarea class="form-control count-text-desc-keywords" name="refused_notes" rows="4" form="refuse-form" required></textarea>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-danger btn-lg" form="refuse-form">
+                        @lang('site.submit')
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 <div class="row">
     <div class="col-md-12">
@@ -55,10 +79,7 @@
                 @if($orders->count())
                <form action="{{ route('admin.post.order.deleteMulti') }}" method="post" id="Form2"> @csrf </form>
                 </button>
-
-                        <div class="coverLoading" style="">
-                            <img src="{{furl()}}/img/loading.gif">
-                        </div>
+                <form method="post" id="refuse-form"> @csrf </form> 
 
                         <table class="table table-striped table-bordered table-hover table-checkable table-sort order-column column" id="sample_1">
                         <thead>
@@ -79,8 +100,10 @@
                             </tr>
                         </thead>
                         <tbody class="connected-sortable droppable-area1">
+                            <div class="coverLoading" style="width: 50px;"><img src="{{furl()}}/img/loading.gif"></div>
                             
                             @foreach($orders as $order)
+                            
                             <tr class="odd gradeX draggable-item" id="row-no-{{ $order->id }}">
                                 <input type="hidden" name="sort[]" multiple value="{{ $order->id }}" form="sortForm">
                                 <td class="text-center">
@@ -122,19 +145,24 @@
                                             <input type="hidden" name="id" value="{{ $order->id }}">
                                             
                                         </form>
-                                        <form method="post" class="refuse-form" id="refuse-{{ $order->id }}"> 
-                                            @csrf 
-                                            <input type="hidden" name="id" value="{{ $order->id }}">
-                                            
-                                        </form>
 
-                                        <button type="submit" class="btn btn-primary btn-sm" form="accept-{{ $order->id }}">
+                                        <form method="post" class="cancelled-form" id="cancelled-{{ $order->id }}"> 
+                                                @csrf 
+                                                <input type="hidden" name="id" value="{{ $order->id }}">
+                                            </form>
+
+                                        <button type="submit" class="btn btn-primary btn-sm" form="accept-{{ $order->id }}" onclick="return confirm('Confirm accepting the order ?');">
                                                 @lang('site.accept')
                                         </button>
 
-                                        <button type="submit" class="btn btn-danger btn-sm" form="refuse-{{ $order->id }}">
+                                        <button type="button" class="btn btn-danger btn-sm refuse-btn" data-toggle="modal" data-target="#refuse-modal" value="{{ $order->id }}">
                                                 @lang('site.refuse')
                                         </button>
+
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Confirm shipping the order ?');" form="cancelled-{{ $order->id }}">
+                                                @lang('site.cancel')
+                                            </button>
+
                                 </td>
                                             
                             </tr>
@@ -236,8 +264,54 @@
         })
     })
 
+    $('.refuse-btn').each(function(){
+        $(this).click(function(){
+            $('#refuse-form-hidden').val($(this).val());
+        })
+    })
 
-    $('.refuse-form').each(function(){
+    $('#refuse-form').submit(function(e){
+        e.preventDefault();
+
+        $('#refuse-modal').modal('toggle');
+
+
+        // return false;
+        var formData  = new FormData(jQuery(this)[0]);
+        var id = parseInt(formData.get("id"));
+        
+        $.ajax({
+            type:'POST',
+            url:"{{route('admin.post.order.shipping.toRefused')}}",
+            data:formData,
+            contentType: false,
+            processData: false,
+            beforeSend:function()
+            {
+                $(".coverLoading").css("display","block");
+                $("#sample_1").css("visibility","hidden");
+            },
+            success:function(data)
+            {
+                $(".coverLoading").css("display","none");
+                $("#sample_1").css("visibility","visible");
+                $('#row-no-'+id).hide();
+            },
+            error: function(xhr, status, error) 
+            {
+                console.log(error);
+                $("#errors").html('');
+                $.each(xhr.responseJSON.errors, function (key, item) 
+                {
+                    $("#errors").append("<li class='alert alert-danger show-errors'>"+item+"</li>")
+                });
+
+            }
+
+        });
+    })
+
+    $('.cancelled-form').each(function(){
         $(this).submit(function(e){
             e.preventDefault();
 
@@ -247,12 +321,19 @@
             
             $.ajax({
                 type:'POST',
-                url:"{{route('admin.post.order.shipping.toRefused')}}",
+                url:"{{route('admin.post.order.toCancelled')}}",
                 data:formData,
                 contentType: false,
                 processData: false,
+                beforeSend:function()
+                {
+                    $(".coverLoading").css("display","block");
+                    $("#sample_1").css("visibility","hidden");
+                },
                 success:function(data)
                 {
+                    $(".coverLoading").css("display","none");
+                    $("#sample_1").css("visibility","visible");
                     $('#row-no-'+id).hide();
                 },
                 error: function(xhr, status, error) 

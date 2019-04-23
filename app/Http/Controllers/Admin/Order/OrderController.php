@@ -41,6 +41,20 @@ class OrderController extends Controller
         }
     }
 
+    public function toCancelled(Request $request)
+    {
+        if($request->ajax())
+        {
+            $order = Order::where('id', $request->id)->first();
+            $order->status = 'cancelled';
+            $order->save();
+            $message['success'] = trans('site.cancelled_success');
+            return response()->json($message);
+        }
+    }
+
+
+
     
     // deleteing row from db  ( soft delete )
     public function delete($id)

@@ -17,19 +17,26 @@ class AdminSeeder extends Seeder
     public function run()
     {
         
-        $faker = Faker::create();
+        // $faker = Faker::create();
 
         $data = new Admin();
-        $data['name'] = $faker->name;
+        $data['name'] = 'kareem torky';
         $data['language_id'] = 1;
-        $data['email'] = "adminen@admin.com";
+        $data['email'] = "kareem@admin.com";
         $data['password'] = bcrypt('123456');
         $data->save();
 
         $data = new Admin();
-        $data['name'] = $faker->name;
+        $data['name'] = 'mostafa mahfouz';
+        $data['language_id'] = 1;
+        $data['email'] = "mostafa@admin.com";
+        $data['password'] = bcrypt('123456');
+        $data->save();
+
+        $data = new Admin();
+        $data['name'] = 'arabic admin';
         $data['language_id'] = 2;
-        $data['email'] = "admin@admin.com";
+        $data['email'] = "arabic@admin.com";
         $data['password'] = bcrypt('123456');
         $data->save();
 

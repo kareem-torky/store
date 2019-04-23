@@ -44,11 +44,6 @@
 </div>
 
 
-{{-- <div class="alert alert-success">
-    <h3 class="text-center">{{ $success }} </h3>
-</div> --}}
-
-
 <div class="row">
     <div class="col-md-12">
         <!-- BEGIN EXAMPLE TABLE PORTLET-->
@@ -59,9 +54,6 @@
                 @if($orders->count())
                <form action="{{ route('admin.post.order.deleteMulti') }}" method="post" id="Form2"> @csrf </form>
                 </button>
-                        <div class="coverLoading" style="">
-                            <img src="{{furl()}}/img/loading.gif">
-                        </div>
 
                         <table class="table table-striped table-bordered table-hover table-checkable table-sort order-column column" id="sample_1">
                         <thead>
@@ -82,7 +74,8 @@
                             </tr>
                         </thead>
                         <tbody class="connected-sortable droppable-area1">
-                            
+                            <div class="coverLoading" style="width: 50px;"><img src="{{furl()}}/img/loading.gif"></div>
+
                             @foreach($orders as $order)
                             <tr class="odd gradeX draggable-item" id="row-no-{{ $order->id }}">
                                 <input type="hidden" name="sort[]" multiple value="{{ $order->id }}" form="sortForm">
@@ -124,10 +117,22 @@
                                     <form method="post" class="shipping-form" id="shipping-{{ $order->id }}"> 
                                         @csrf 
                                         <input type="hidden" name="id" value="{{ $order->id }}">
-                                        <button type="submit" class="btn btn-primary btn-sm">
-                                            @lang('site.addShipping')
-                                        </button>
                                     </form>
+
+                                    <form method="post" class="cancelled-form" id="cancelled-{{ $order->id }}"> 
+                                        @csrf 
+                                        <input type="hidden" name="id" value="{{ $order->id }}">
+                                    </form>
+
+                                    <button type="submit" class="btn btn-primary btn-sm" onclick="return confirm('Confirm shipping the order ?');" form="shipping-{{ $order->id }}">
+                                        @lang('site.addShipping')
+                                    </button>
+
+                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Confirm shipping the order ?');" form="cancelled-{{ $order->id }}">
+                                         @lang('site.cancel')
+                                     </button>
+    
+
                                 </td>
                                 
                             </tr>
@@ -200,6 +205,46 @@
             $.ajax({
                 type:'POST',
                 url:"{{route('admin.post.order.pending.toShipping')}}",
+                data:formData,
+                contentType: false,
+                processData: false,
+                beforeSend:function()
+                {
+                    $(".coverLoading").css("display","block");
+                    $("#sample_1").css("visibility","hidden");
+                },
+                success:function(data)
+                {
+                    $(".coverLoading").css("display","none");
+                    $("#sample_1").css("visibility","visible");
+                    $('#row-no-'+id).hide();
+                },
+                error: function(xhr, status, error) 
+                {
+                    console.log(error);
+                    $("#errors").html('');
+                    $.each(xhr.responseJSON.errors, function (key, item) 
+                    {
+                        $("#errors").append("<li class='alert alert-danger show-errors'>"+item+"</li>")
+                    });
+
+                }
+
+            });
+        })
+    })
+
+    $('.cancelled-form').each(function(){
+        $(this).submit(function(e){
+            e.preventDefault();
+
+            // return false;
+            var formData  = new FormData(jQuery(this)[0]);
+            var id = parseInt(formData.get("id"));
+            
+            $.ajax({
+                type:'POST',
+                url:"{{route('admin.post.order.toCancelled')}}",
                 data:formData,
                 contentType: false,
                 processData: false,

@@ -99,7 +99,7 @@
                                     <form method="post" class="status-form" id="status-{{ $con->id }}"> 
                                         @csrf 
                                         <input type="hidden" name="id" value="{{ $con->id }}">
-                                        <button type="submit" id="status-btn" class="btn btn-danger btn-sm">
+                                        <button type="submit" id="status-btn" class="btn btn-danger btn-sm" onclick="return confirm('Confirm changing the product status ?');">
                                             change
                                         </button>
                                     </form>

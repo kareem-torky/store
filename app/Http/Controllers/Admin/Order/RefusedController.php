@@ -13,7 +13,7 @@ class RefusedController extends Controller
     public function index()
     {
         $admin_id = auth()->guard('admin')->id();
-        $data['orders'] = Order::select('id','name','code')
+        $data['orders'] = Order::select('id','name','code', 'refused_notes')
         ->where('status', 'refused')
         ->where('admin_id', $admin_id)
     	->get();
